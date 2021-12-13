@@ -75,6 +75,9 @@ public class Pathfinding : MonoBehaviour {
                         OpenList.Add(NeighborNode);//Add it to the list
                     }
                 }
+                if (GridReference.updateTimer)
+                GridReference.levelTimer += Time.deltaTime;
+                Debug.Log("levelTimer" + GridReference.levelTimer);
             }
 
         }

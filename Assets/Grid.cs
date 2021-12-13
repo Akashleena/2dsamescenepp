@@ -150,9 +150,7 @@ public class Grid : MonoBehaviour
 
                 }
 
-                if (updateTimer)
-                levelTimer += Time.deltaTime;
-                Debug.Log("levelTimer" + levelTimer);
+             
                 Gizmos.DrawCube(n.vPosition, Vector3.one * (fNodeDiameter - fDistanceBetweenNodes));//Draw the node at the position of the node.
 
             }
