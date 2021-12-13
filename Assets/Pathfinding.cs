@@ -93,6 +93,7 @@ public class Pathfinding : MonoBehaviour {
         while(CurrentNode != a_StartingNode)//While loop to work through each node going through the parents to the beginning of the path
         {
             FinalPath.Add(CurrentNode);//Add that node to the final path
+            GridReference.totalcost += GetTotalCost(CurrentNode, CurrentNode.ParentNode);
             CurrentNode = CurrentNode.ParentNode;//Move onto its parent node
         }
 
@@ -101,7 +102,14 @@ public class Pathfinding : MonoBehaviour {
         GridReference.FinalPath = FinalPath;//Set the final path
 
     }
-
+    float GetTotalCost(Node end, Node begin)
+    {
+        int dx = Mathf.Abs(end.iGridX - begin.iGridX);//x1-x2
+        int dy = Mathf.Abs(end.iGridY - begin.iGridY);//y1-y2
+        float dist = Mathf.Sqrt(dx*dx + dy*dy);
+		float cost = 0.001f*dist;
+        return cost;
+    }
     int GetManhattenDistance(Node a_nodeA, Node a_nodeB)
     {
         int ix = Mathf.Abs(a_nodeA.iGridX - a_nodeB.iGridX);//x1-x2
