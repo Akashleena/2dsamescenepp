@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using System.Diagnostics;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Debug = UnityEngine.Debug;
 public class Grid : MonoBehaviour
 {
 
@@ -17,14 +18,16 @@ public class Grid : MonoBehaviour
 
     float fNodeDiameter;//Twice the amount of the radius (Set in the start function)
     int iGridSizeX, iGridSizeY;//Size of the Grid in Array units.
-
-
+    public float levelTimer;
+    public bool updateTimer=true;
     private void Start()//Ran once the program starts
     {
+       levelTimer=0.0f;
         fNodeDiameter = fNodeRadius * 2;//Double the radius to get diameter
         iGridSizeX = Mathf.RoundToInt(vGridWorldSize.x / fNodeDiameter);//Divide the grids world co-ordinates by the diameter to get the size of the graph in array units.
         iGridSizeY = Mathf.RoundToInt(vGridWorldSize.y / fNodeDiameter);//Divide the grids world co-ordinates by the diameter to get the size of the graph in array units.
         CreateGrid();//Draw the grid
+        
     }
 
     void CreateGrid()
@@ -147,8 +150,11 @@ public class Grid : MonoBehaviour
 
                 }
 
-
+                if (updateTimer)
+                levelTimer += Time.deltaTime;
+                Debug.Log("levelTimer" + levelTimer);
                 Gizmos.DrawCube(n.vPosition, Vector3.one * (fNodeDiameter - fDistanceBetweenNodes));//Draw the node at the position of the node.
+
             }
         }
     }

@@ -20,6 +20,7 @@ public class Node {
     public Node(bool a_bIsWall, Vector3 a_vPos, int a_igridX, int a_igridY)//Constructor
     {
         bIsWall = a_bIsWall;//Tells the program if this node is being obstructed.
+        
         vPosition = a_vPos;//The world position of the node.
         iGridX = a_igridX;//X Position in the Node Array
         iGridY = a_igridY;//Y Position in the Node Array

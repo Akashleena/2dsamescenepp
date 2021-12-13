@@ -1,15 +1,21 @@
-﻿using System.Collections;
+﻿using System.Diagnostics;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Debug = UnityEngine.Debug;
 public class Pathfinding : MonoBehaviour {
 
     Grid GridReference;//For referencing the grid class
+
     public Transform StartPosition;//Starting position to pathfind from
     public Transform TargetPosition;//Starting position to pathfind to
+    
+    
 
+    
     private void Awake()//When the program starts
     {
+
         GridReference = GetComponent<Grid>();//Get a reference to the game manager
     }
 
@@ -44,6 +50,9 @@ public class Pathfinding : MonoBehaviour {
             if (CurrentNode == TargetNode)//If the current node is the same as the target node
             {
                 GetFinalPath(StartNode, TargetNode);//Calculate the final path
+                GridReference.updateTimer = false;
+                Debug.Log("level timer" + GridReference.levelTimer);
+                Debug.Log("update timer" + GridReference.updateTimer);
             }
 
             foreach (Node NeighborNode in GridReference.GetNeighboringNodes(CurrentNode))//Loop through each neighbor of the current node
@@ -59,6 +68,7 @@ public class Pathfinding : MonoBehaviour {
                     NeighborNode.igCost = MoveCost;//Set the g cost to the f cost
                     NeighborNode.ihCost = GetManhattenDistance(NeighborNode, TargetNode);//Set the h cost
                     NeighborNode.ParentNode = CurrentNode;//Set the parent of the node for retracing steps
+
 
                     if(!OpenList.Contains(NeighborNode))//If the neighbor is not in the openlist
                     {
