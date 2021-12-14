@@ -1,7 +1,10 @@
 ﻿using System.Diagnostics;
+//using System.Numerics;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using Debug = UnityEngine.Debug;
 public class Grid : MonoBehaviour
 {
@@ -11,10 +14,10 @@ public class Grid : MonoBehaviour
     public Vector2 vGridWorldSize;//A vector2 to store the width and height of the graph in world units.
     public float fNodeRadius;//This stores how big each square on the graph will be
     public float fDistanceBetweenNodes;//The distance that the squares will spawn from eachother.
-
+    public int totalNodes=0;
     Node[,] NodeArray;//The array of nodes that the A Star algorithm uses.
     public List<Node> FinalPath;//The completed path that the red line will be drawn along
-
+   
     public float totalcost=0;
     float fNodeDiameter;//Twice the amount of the radius (Set in the start function)
     int iGridSizeX, iGridSizeY;//Size of the Grid in Array units.
@@ -23,6 +26,7 @@ public class Grid : MonoBehaviour
     private void Start()//Ran once the program starts
     {
        levelTimer=0.0f;
+       // statusText = GameObject.Find("Status Text").GetComponent<Text>();
         fNodeDiameter = fNodeRadius * 2;//Double the radius to get diameter
         iGridSizeX = Mathf.RoundToInt(vGridWorldSize.x / fNodeDiameter);//Divide the grids world co-ordinates by the diameter to get the size of the graph in array units.
         iGridSizeY = Mathf.RoundToInt(vGridWorldSize.y / fNodeDiameter);//Divide the grids world co-ordinates by the diameter to get the size of the graph in array units.

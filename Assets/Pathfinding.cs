@@ -2,21 +2,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 using Debug = UnityEngine.Debug;
 public class Pathfinding : MonoBehaviour {
 
     Grid GridReference;//For referencing the grid class
-
+    WriteToCSVFile writeToCsv;
     public Transform StartPosition;//Starting position to pathfind from
     public Transform TargetPosition;//Starting position to pathfind to
     
-    
+    private Text statusText;
+
 
     
     private void Awake()//When the program starts
     {
-
+        statusText = GameObject.Find("Status Text").GetComponent<Text>();
         GridReference = GetComponent<Grid>();//Get a reference to the game manager
+        writeToCsv = GetComponent<WriteToCSVFile>();
     }
 
     private void Update()//Every frame
@@ -53,6 +56,8 @@ public class Pathfinding : MonoBehaviour {
                 GridReference.updateTimer = false;
                 Debug.Log("level timer" + GridReference.levelTimer);
                 Debug.Log("update timer" + GridReference.updateTimer);
+                statusText.text = "Solved! with " + GridReference.totalNodes + " nodes, cost=" + GridReference.totalcost;
+                writeToCsv.WriteCSV("TRRT", GridReference.levelTimer, GridReference.totalcost, GridReference.totalNodes);
             }
 
             foreach (Node NeighborNode in GridReference.GetNeighboringNodes(CurrentNode))//Loop through each neighbor of the current node
@@ -93,10 +98,13 @@ public class Pathfinding : MonoBehaviour {
         while(CurrentNode != a_StartingNode)//While loop to work through each node going through the parents to the beginning of the path
         {
             FinalPath.Add(CurrentNode);//Add that node to the final path
+            GridReference.totalNodes += 1;
+            if (GridReference.updateTimer) //Try commenting this the cost value keeps on getting updated even if the goal node is reached
             GridReference.totalcost += GetTotalCost(CurrentNode, CurrentNode.ParentNode);
             CurrentNode = CurrentNode.ParentNode;//Move onto its parent node
+            
         }
-
+        
         FinalPath.Reverse();//Reverse the path to get the correct order
 
         GridReference.FinalPath = FinalPath;//Set the final path
