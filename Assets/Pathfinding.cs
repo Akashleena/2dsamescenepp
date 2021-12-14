@@ -10,7 +10,7 @@ public class Pathfinding : MonoBehaviour {
     WriteToCSVFile writeToCsv;
     public Transform StartPosition;//Starting position to pathfind from
     public Transform TargetPosition;//Starting position to pathfind to
-    
+    public GameObject csvObject;
     private Text statusText;
 
 
@@ -19,7 +19,7 @@ public class Pathfinding : MonoBehaviour {
     {
         statusText = GameObject.Find("Status Text").GetComponent<Text>();
         GridReference = GetComponent<Grid>();//Get a reference to the game manager
-        writeToCsv = GetComponent<WriteToCSVFile>();
+        writeToCsv = csvObject.GetComponent<WriteToCSVFile>();
     }
 
     private void Update()//Every frame
