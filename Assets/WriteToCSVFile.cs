@@ -51,8 +51,7 @@ public class WriteToCSVFile : MonoBehaviour
 
         Debug.Log("obj length" + myWritingtoSSList.obj.Length);
         
-        // if(myWritingtoSSList.obj.Length > 0)
-        // {
+       
             
         TextWriter tw = new StreamWriter(filename, false);
         tw.WriteLine("NameofPP, TotalTime, TotalCost, TotalNodes");
@@ -71,6 +70,6 @@ public class WriteToCSVFile : MonoBehaviour
         tw.WriteLine(myWritingtoSSList.obj[i].nameofPP + "," + myWritingtoSSList.obj[i].totalTime + ","+ myWritingtoSSList.obj[i].totalCost + "," + myWritingtoSSList.obj[i].totalNodes);
         }
         tw.Close();
-        // }
+        
     }
 }
