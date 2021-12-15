@@ -1,3 +1,5 @@
 NameofPP,TotalTime,TotalCost,TotalNodes
 TRRT,6.76858,1009.983,158
 A star,3.619997,28,28
+Dijkstra,0.3031578,0.198,12
+Dijkstra,0.226532,1.053,27
