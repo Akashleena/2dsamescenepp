@@ -120,7 +120,7 @@ public class Pathfinding : MonoBehaviour {
         int dx = Mathf.Abs(end.iGridX - begin.iGridX);//x1-x2
         int dy = Mathf.Abs(end.iGridY - begin.iGridY);//y1-y2
         float dist = Mathf.Sqrt(dx*dx + dy*dy);
-		float cost = 0.001f*dist;
+		float cost = dist;
         return cost;
     }
     int GetManhattenDistance(Node a_nodeA, Node a_nodeB)

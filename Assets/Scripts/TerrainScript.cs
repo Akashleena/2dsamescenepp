@@ -266,7 +266,7 @@ public class TerrainScript : MonoBehaviour {
 		
 		float dist = Mathf.Sqrt(dx*dx + dz*dz);
 		
-		float cost = 0.001f*dist; //arbitrary, small distance component
+		float cost = dist; //arbitrary, small distance component
 		
 		//if(dCost > 0) {
 			//cost += dist*dCost;
