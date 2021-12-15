@@ -38,11 +38,11 @@ public class WriteToCSVFile : MonoBehaviour
 
         //Output the Game data path to the console
         Debug.Log("dataPath : " + filename);
-
+        Debug.Log(File.Exists(filename));
         if(!File.Exists(filename)) {
             TextWriter tw = new StreamWriter(filename, false);
             // with open("WriteToCSVFile.csv", "a", newline="") as file:
-            tw.WriteLine("NameofPP, TotalTime, TotalCost, TotalNodes");
+            tw.WriteLine("NameofPP,TotalTime,TotalCost,TotalNodes");
             tw.Close();
         }
     }
