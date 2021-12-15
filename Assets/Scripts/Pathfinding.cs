@@ -22,10 +22,15 @@ public class Pathfinding : MonoBehaviour {
         writeToCsv = csvObject.GetComponent<WriteToCSVFile>();
     }
 
-    private void Update()//Every frame
-    {
-        FindPath(StartPosition.position, TargetPosition.position);//Find a path to the goal
-    }
+        void Start() 
+        {
+            FindPath(StartPosition.position, TargetPosition.position);
+        }
+    
+    // private void Update()//Every frame
+    // {
+    //     FindPath(StartPosition.position, TargetPosition.position);//Find a path to the goal
+    // }
 
     void FindPath(Vector3 a_StartPos, Vector3 a_TargetPos)
     {
