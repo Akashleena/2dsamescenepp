@@ -57,7 +57,7 @@ public class WriteToCSVFile : MonoBehaviour
         // with open("WriteToCSVFile.csv", "a", newline="") as file:
         tw.WriteLine("NameofPP, TotalTime, TotalCost, TotalNodes");
         tw.Close();
-
+        
         tw = new StreamWriter(filename, append: true);
         
 
