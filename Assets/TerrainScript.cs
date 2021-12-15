@@ -19,9 +19,6 @@ public class TerrainScript : MonoBehaviour {
 		public Vector3 parentPos;
 		public int parentInd;
 		public GameObject line = null;
-		public float levelTimer;
-     	public bool updateTimer=true;
-		WriteToCSVFile writeToCsv;
 		public float heightOffset = 0.5f; //lift up a little to prevent clipping
 		
 		public Node(Vector3 _pos, Vector3 _parentPos, int _parentInd, GameObject obj) {
@@ -77,6 +74,9 @@ public class TerrainScript : MonoBehaviour {
 	private const int MAX_NUM_NODES = 10000;
     public GameObject[] gameObjects;
 	public GameObject csvObject;
+	WriteToCSVFile writeToCsv;
+	public float levelTimer;
+	public bool updateTimer=true;
 	private float pathCost=0;
 	public List<Vector3> obstacleCoord;
 	
