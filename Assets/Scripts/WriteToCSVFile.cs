@@ -54,10 +54,11 @@ public class WriteToCSVFile : MonoBehaviour
        
             
         TextWriter tw = new StreamWriter(filename, false);
+        // with open("WriteToCSVFile.csv", "a", newline="") as file:
         tw.WriteLine("NameofPP, TotalTime, TotalCost, TotalNodes");
         tw.Close();
 
-        tw = new StreamWriter(filename, true);
+        tw = new StreamWriter(filename, append: true);
         
 
         for(int i=0; i<myWritingtoSSList.obj.Length; i++)

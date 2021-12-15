@@ -735,24 +735,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myWritingtoSSList:
     obj:
-    - nameofPP: RRT
-      totalTime: 30
-      averageTime: 20
-      totalCost: 0.6
-      totalSimTime: 0.7
-      totalNodes: 8
-    - nameofPP: A*
-      totalTime: 20
-      averageTime: 7.53
-      totalCost: 9.74
-      totalSimTime: 15.2
-      totalNodes: 384
-    - nameofPP: D*
-      totalTime: 40.59
-      averageTime: 12.46
-      totalCost: 25.8
-      totalSimTime: 21.32
-      totalNodes: 424
+    - nameofPP: 
+      totalTime: 0
+      averageTime: 0
+      totalCost: 0
+      totalSimTime: 0
+      totalNodes: 0
 --- !u!4 &699197865
 Transform:
   m_ObjectHideFlags: 0
@@ -1022,6 +1010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartPosition: {fileID: 1796080251}
   TargetPosition: {fileID: 1968824680}
+  csvObject: {fileID: 699197863}
 --- !u!1 &1165297110
 GameObject:
   m_ObjectHideFlags: 0
