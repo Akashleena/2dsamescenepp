@@ -69,7 +69,8 @@ public class TerrainScript : MonoBehaviour {
 	private const float MIN_TEMPERATURE = 1e-15f;
 	private int numTransitionFails = 0;
 	private const int MAX_TRANSITION_FAILS = 20;
-	
+	private float endTime;  //to get the simulation time
+    private float startTime;
 	private float pGoToGoal = 0.1f;
 	private const int MAX_NUM_NODES = 10000;
     public GameObject[] gameObjects;
@@ -99,6 +100,7 @@ public class TerrainScript : MonoBehaviour {
 		linePrefab = Resources.Load("LinePrefab");
 		pathPrefab = Resources.Load("PathPrefab");	
 		terrainSize = Terrain.activeTerrain.terrainData.size;
+		startTime = Time.realtimeSinceStartup;
 		//minX = -terrainSize.x/2;
 		minX = 2;
 		maxX = terrainSize.x- 2;
@@ -254,8 +256,9 @@ public class TerrainScript : MonoBehaviour {
 		
 		}
 		updateTimer = false;
+		endTime = (Time.realtimeSinceStartup - startTime);
 		statusText.text = "Solved! with " + nodes.Count + " nodes, cost=" + pathCost;
-		writeToCsv.WriteCSV("TRRT", levelTimer, pathCost, nodes.Count);
+		writeToCsv.WriteCSV("TRRT", levelTimer, pathCost, nodes.Count, endTime);
 
 	}
 	

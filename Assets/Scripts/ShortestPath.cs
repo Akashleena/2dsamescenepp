@@ -10,9 +10,12 @@ public class ShortestPath : MonoBehaviour
     public GameObject csvObject;
     private float endTime;
     private float startTime;
+    public float levelTimer;
+	public bool updateTimer=true;
     private void Awake()//When the program starts
     {
         writeToCsv = csvObject.GetComponent<WriteToCSVFile>();
+        levelTimer=0.0f;
     }
 
     /// <summary>
@@ -45,9 +48,9 @@ public class ShortestPath : MonoBehaviour
         foreach(Transform nd in result) {
             totalCost += nd.GetComponent<DijkstraNode>().getWeight();
         }
-        totalCost *= 0.001f;
-        
-        writeToCsv.WriteCSV("Dijkstra", endTime, totalCost, result.Count);
+        // totalCost *= 0.001f;
+        updateTimer = false;
+        writeToCsv.WriteCSV("Dijkstra", levelTimer, totalCost, result.Count, endTime);
         return result;
     }
 
@@ -116,6 +119,9 @@ public class ShortestPath : MonoBehaviour
                         node.setWeight(distance);
                         node.setParentNode(current);
                     }
+                    if (updateTimer)
+                		levelTimer += Time.deltaTime;
+                		Debug.Log("levelTimer" + levelTimer);
                 }
             }
 

@@ -42,7 +42,7 @@ public class WriteToCSVFile : MonoBehaviour
         if(!File.Exists(filename)) {
             TextWriter tw = new StreamWriter(filename, false);
             // with open("WriteToCSVFile.csv", "a", newline="") as file:
-            tw.WriteLine("NameofPP,TotalTime,TotalCost,TotalNodes");
+            tw.WriteLine("NameofPP,TotalTime,TotalCost,TotalNodes,TotalSimTime");
             tw.Close();
         }
     }
@@ -54,7 +54,7 @@ public class WriteToCSVFile : MonoBehaviour
         //     WriteCSV();
         // }
     }
-    public void WriteCSV(string nameofPP, float totalTime, float totalCost, int totalNodes)
+    public void WriteCSV(string nameofPP, float totalTime, float totalCost, int totalNodes, float totalSimTime)
     {
 
         Debug.Log("obj length" + myWritingtoSSList.obj.Length);
@@ -65,8 +65,9 @@ public class WriteToCSVFile : MonoBehaviour
         myWritingtoSSList.obj[objCount].totalTime=totalTime;
         myWritingtoSSList.obj[objCount].totalCost=totalCost;
         myWritingtoSSList.obj[objCount].totalNodes=totalNodes;
+        myWritingtoSSList.obj[objCount].totalSimTime=totalSimTime;
 
-        tw.WriteLine(myWritingtoSSList.obj[objCount].nameofPP + "," + myWritingtoSSList.obj[objCount].totalTime + ","+ myWritingtoSSList.obj[objCount].totalCost + "," + myWritingtoSSList.obj[objCount].totalNodes);
+        tw.WriteLine(myWritingtoSSList.obj[objCount].nameofPP + "," + myWritingtoSSList.obj[objCount].totalTime + ","+ myWritingtoSSList.obj[objCount].totalCost + "," + myWritingtoSSList.obj[objCount].totalNodes+ "," + myWritingtoSSList.obj[objCount].totalSimTime);
         
         tw.Close();
         

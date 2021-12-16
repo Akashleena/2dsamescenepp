@@ -12,7 +12,8 @@ public class Pathfinding : MonoBehaviour {
     public Transform TargetPosition;//Starting position to pathfind to
     public GameObject csvObject;
     private Text statusText;
-
+    private float endTime;
+    private float startTime;
 
     
     private void Awake()//When the program starts
@@ -25,6 +26,7 @@ public class Pathfinding : MonoBehaviour {
         void Start() 
         {
             FindPath(StartPosition.position, TargetPosition.position);
+            startTime = Time.realtimeSinceStartup;
         }
     
     // private void Update()//Every frame
@@ -61,8 +63,9 @@ public class Pathfinding : MonoBehaviour {
                 GridReference.updateTimer = false;
                 Debug.Log("level timer" + GridReference.levelTimer);
                 Debug.Log("update timer" + GridReference.updateTimer);
+                endTime = (Time.realtimeSinceStartup - startTime);
                 statusText.text = "Solved! with " + GridReference.totalNodes + " nodes, cost=" + GridReference.totalcost;
-                writeToCsv.WriteCSV("A star", GridReference.levelTimer, GridReference.totalcost, GridReference.totalNodes);
+                writeToCsv.WriteCSV("A star", GridReference.levelTimer, GridReference.totalcost, GridReference.totalNodes, endTime);
             }
 
             foreach (Node NeighborNode in GridReference.GetNeighboringNodes(CurrentNode))//Loop through each neighbor of the current node
