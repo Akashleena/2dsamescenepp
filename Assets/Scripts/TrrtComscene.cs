@@ -12,7 +12,7 @@ using Random=UnityEngine.Random;
 
 
 
-public class TerrainScript : MonoBehaviour {
+public class TrrtComscene : MonoBehaviour {
 	class Node {
 		public Vector3 pos;
 
@@ -53,8 +53,8 @@ public class TerrainScript : MonoBehaviour {
 	private float minX, maxX, minZ, maxZ, minHeight, maxHeight;
 	private List<Node> nodes = new List<Node>();
 	//private Vector3 obstaclepos;
-	private GameObject start;
-	private GameObject goal;
+	// private GameObject start;
+	// private GameObject goal;
 	private bool solving = false;
 	private int solvingSpeed = 1; //number of attempts to make per frame
 	
@@ -63,7 +63,8 @@ public class TerrainScript : MonoBehaviour {
 	private int closestInd = 0; //the last node in the tree (the node before goal node)
 	private int goalInd = 0; //when success is achieved, remember which node is close to goal
 	private float extendAngle = 0f;
-	
+	public Transform startNode;
+    public Transform endNode;
 	private float temperature = 1e-6f;
 	private const float temperatureAdjustFactor = 2.0f;
 	private const float MIN_TEMPERATURE = 1e-15f;
@@ -94,8 +95,8 @@ public class TerrainScript : MonoBehaviour {
 		//This goes in the canvas
 		coordText = GameObject.Find("Coordinate Text").GetComponent<Text>();
 		statusText = GameObject.Find("Status Text").GetComponent<Text>();
-		start = GameObject.Find("Start");
-		goal = GameObject.Find("Goal");
+		// start = GameObject.Find("Start");
+		// goal = GameObject.Find("Goal");
 		writeToCsv = csvObject.GetComponent<WriteToCSVFile>();
 		linePrefab = Resources.Load("LinePrefab");
 		pathPrefab = Resources.Load("PathPrefab");	
@@ -158,17 +159,17 @@ public class TerrainScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown("s")) {
-			BeginSolving(10);
-		}
+		// if(Input.GetKeyDown("s")) {
+		// 	BeginSolving(10);
+		// }
 		
-		if(Input.GetKeyDown("p")) {
-			PauseSolving();
-		}
+		// if(Input.GetKeyDown("p")) {
+		// 	PauseSolving();
+		// }
 		
-		if(Input.GetKeyDown("c")) {
-			ClearTree();
-		}
+		// if(Input.GetKeyDown("c")) {
+		// 	ClearTree();
+		// }
 		
 		if(solving) {
 			if(nodes.Count < MAX_NUM_NODES) {
@@ -178,36 +179,36 @@ public class TerrainScript : MonoBehaviour {
 		}
 	}
 	
-	void OnMouseOver () {
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		RaycastHit hitInfo;
+	// void OnMouseOver () {
+	// 	Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+	// 	RaycastHit hitInfo;
 		
-		if(GetComponent<Collider>().Raycast(ray, out hitInfo, 5000)) { //TODO replace with camera far plane distance
-			//Debug.Log(hitInfo.point);
-			coordText.text = hitInfo.point.ToString();
+	// 	if(GetComponent<Collider>().Raycast(ray, out hitInfo, 5000)) { //TODO replace with camera far plane distance
+	// 		//Debug.Log(hitInfo.point);
+	// 		coordText.text = hitInfo.point.ToString();
 			
-			if(Input.GetKey("1")) {
-				start.transform.position = hitInfo.point;
-			}
+	// 		if(Input.GetKey("1")) {
+	// 			start.transform.position = hitInfo.point;
+	// 		}
 			
-			if(Input.GetKey("2")) {
-				goal.transform.position = hitInfo.point;
-			}
-		}
-	}
+	// 		if(Input.GetKey("2")) {
+	// 			goal.transform.position = hitInfo.point;
+	// 		}
+	// 	}
+	// }
 	
 	void OnMouseExit () {
 		coordText.text = "";
 	}
 	
 	
-	void BeginSolving(int speed) {
+	void BeginSolving(int speed, Transform startNode, Transform endNode) {
 		solvingSpeed = speed;
 		if(!solving) {
 			solving = true;
 			if(nodes.Count < 1) {
 				//add initial node
-				Node n = new Node(start.transform.position, start.transform.position, -1, gameObject);
+				Node n = new Node(start.position, start.position, -1, gameObject);
 				nodes.Add(n);
 				
 				//Debug.Log("Added node " + nodes.Count + ": " + n.pos.x + ", " + n.pos.y + ", " + n.pos.z);
@@ -215,21 +216,21 @@ public class TerrainScript : MonoBehaviour {
 		}
 	}
 	
-	void PauseSolving() {
-		solving = false;
-		statusText.text = "Solving paused.";
-	}
+	// void PauseSolving() {
+	// 	solving = false;
+	// 	statusText.text = "Solving paused.";
+	// }
 	
-	void ClearTree() {
-		solving = false;
-		statusText.text = "Tree cleared.";
-		//FIXME
-		for(int i=0; i<nodes.Count; i++) {
-			GameObject.Destroy(nodes[i].line);
-		}
-		nodes.Clear();
-		needNewTarget = true;
-	}
+	// void ClearTree() {
+	// 	solving = false;
+	// 	statusText.text = "Tree cleared.";
+	// 	//FIXME
+	// 	for(int i=0; i<nodes.Count; i++) {
+	// 		GameObject.Destroy(nodes[i].line);
+	// 	}
+	// 	nodes.Clear();
+	// 	needNewTarget = true;
+	// }
 	
 	
 	void FoundGoal() {

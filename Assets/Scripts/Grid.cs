@@ -15,12 +15,12 @@ public class Grid : MonoBehaviour
     public float fNodeRadius;//This stores how big each square on the graph will be
     public float fDistanceBetweenNodes;//The distance that the squares will spawn from eachother.
     public int totalNodes=0;
-    Node[,] NodeArray;//The array of nodes that the A Star algorithm uses.
+    public Node[,] NodeArray;//The array of nodes that the A Star algorithm uses.
     public List<Node> FinalPath;//The completed path that the red line will be drawn along
    
     public float totalcost=0;
-    float fNodeDiameter;//Twice the amount of the radius (Set in the start function)
-    int iGridSizeX, iGridSizeY;//Size of the Grid in Array units.
+    public float fNodeDiameter;//Twice the amount of the radius (Set in the start function)
+    public int iGridSizeX, iGridSizeY;//Size of the Grid in Array units.
     public float levelTimer;
     public bool updateTimer=true;
     private void Start()//Ran once the program starts
@@ -34,7 +34,7 @@ public class Grid : MonoBehaviour
         
     }
 
-    void CreateGrid()
+    public void CreateGrid()
     {
         NodeArray = new Node[iGridSizeX, iGridSizeY];//Declare the array of nodes.
         Vector3 bottomLeft = transform.position - Vector3.right * vGridWorldSize.x / 2 - Vector3.forward * vGridWorldSize.y / 2;//Get the real world position of the bottom left of the grid.
