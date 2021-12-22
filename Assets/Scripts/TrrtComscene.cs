@@ -105,13 +105,13 @@ public class TrrtComscene : MonoBehaviour {
 		startTime = Time.realtimeSinceStartup;
 	
 		minX = 2;
-		maxX = 400;
+		maxX = 40;
 	
 		minZ = 2;
 	
-		maxZ = 400;
+		maxZ = 40;
 		minHeight = 0;
-		maxHeight = 400;
+		maxHeight = 2;
 		Debug.Log("maxHeight" + maxHeight);
 		stepSize = 10; //TODO experiment
 		levelTimer=0.0f;
@@ -262,7 +262,7 @@ public class TrrtComscene : MonoBehaviour {
 			}
 			
 			pos = new Vector3(nodes[closestInd].pos.x + stepSize*Mathf.Cos(extendAngle), 0f, nodes[closestInd].pos.z + stepSize*Mathf.Sin(extendAngle));
-			pos.y = 400; //get y value from terrain
+			pos.y = 2; //get y value from terrain
 			
 			if(TransitionTest(nodes[closestInd].pos, pos)) 
 			{
