@@ -13,14 +13,14 @@ public class GenerateGrid : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        this.generateGrid();
+        this.generateGridtrrt();
         this.generateNeighbours();
 	}
 	
     /// <summary>
     /// Generate the grid with the node.
     /// </summary>
-	private void generateGrid()
+	private void generateGridtrrt()
     {
 
         int counter = 0;

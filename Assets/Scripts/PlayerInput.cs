@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerInput : MonoBehaviour {
 
-    private Transform node;
-    private Transform startNode;
-    private Transform endNode;
-    private List<Transform> blockPath = new List<Transform>();
-
+    public Transform Djnode;
+    public Transform startNode;
+    public Transform endNode;
+    public List<Transform> blockPath = new List<Transform>();
+    public TrrtComscene trrtPath;
 	// Update is called once per frame
 	void Update () {
         mouseInput();
@@ -35,17 +35,17 @@ public class PlayerInput : MonoBehaviour {
             {
                 //unmark previous
                 Renderer rend;
-                if (node != null)
+                if (Djnode != null)
                 {
-                    rend = node.GetComponent<Renderer>();
+                    rend = Djnode.GetComponent<Renderer>();
                     rend.material.color = Color.white;
                 }
 
                 // We now update the selected node.
-                node = hit.transform;
+                Djnode = hit.transform;
 
                 // Mark it
-                rend = node.GetComponent<Renderer>();
+                rend = Djnode.GetComponent<Renderer>();
                 rend.material.color = Color.green;
 
             }
@@ -57,9 +57,9 @@ public class PlayerInput : MonoBehaviour {
     /// </summary>
     public void btnStartNode()
     {
-        if (node != null)
+        if (Djnode != null)
         {
-            DijkstraNode n = node.GetComponent<DijkstraNode>();
+            DijkstraNode n = Djnode.GetComponent<DijkstraNode>();
 
             // Making sure only walkable node are able to set as start.
             if (n.isWalkable())
@@ -67,7 +67,7 @@ public class PlayerInput : MonoBehaviour {
                 // If this is a new start node, we will just set it to blue.
                 if (startNode == null)
                 {
-                    Renderer rend = node.GetComponent<Renderer>();
+                    Renderer rend = Djnode.GetComponent<Renderer>();
                     rend.material.color = Color.blue;
                 }
                 else
@@ -77,12 +77,12 @@ public class PlayerInput : MonoBehaviour {
                     rend.material.color = Color.white;
 
                     // Set the new node as blue.
-                    rend = node.GetComponent<Renderer>();
+                    rend = Djnode.GetComponent<Renderer>();
                     rend.material.color = Color.blue;
                 }
 
-                startNode = node;
-                node = null;
+                startNode = Djnode;
+                Djnode = null;
             }
         }
     }
@@ -92,9 +92,9 @@ public class PlayerInput : MonoBehaviour {
     /// </summary>
     public void btnEndNode()
     {
-        if (node != null)
+        if (Djnode != null)
         {
-            DijkstraNode n = node.GetComponent<DijkstraNode>();
+            DijkstraNode n = Djnode.GetComponent<DijkstraNode>();
 
             // Making sure only walkable node are able to set as end.
             if (n.isWalkable())
@@ -102,7 +102,7 @@ public class PlayerInput : MonoBehaviour {
                 // If this is a new end node, we will just set it to cyan.
                 if (endNode == null)
                 {
-                    Renderer rend = node.GetComponent<Renderer>();
+                    Renderer rend = Djnode.GetComponent<Renderer>();
                     rend.material.color = Color.cyan;
                 }
                 else
@@ -112,35 +112,33 @@ public class PlayerInput : MonoBehaviour {
                     rend.material.color = Color.white;
 
                     // Set the new node as cyan.
-                    rend = node.GetComponent<Renderer>();
+                    rend = Djnode.GetComponent<Renderer>();
                     rend.material.color = Color.cyan;
                 }
 
-                endNode = node;
-                node = null;
+                endNode = Djnode;
+                Djnode = null;
             }
         }
     }
 
-    /// <summary>
-    /// Button for find path.
-    /// </summary>
+   
+    // Button for find path.
+
     public void btnFindPath()
     {   
         // Only find if there are start and end node.
         if (startNode != null && endNode != null)
         {
             // Execute Shortest Path.
-            ShortestPath finder = gameObject.GetComponent<ShortestPath>();
-            List<Transform> paths = finder.findShortestPath(startNode, endNode);
+           // ShortestPath finder = gameObject.GetComponent<ShortestPath>();
+            // List<Transform> paths = finder.findShortestPath(startNode, endNode);
 
             // Colour the node red.
-            foreach (Transform path in paths)
-            {
-                Renderer rend = path.GetComponent<Renderer>();
-                rend.material.color = Color.red;
-            }
-        }
+            trrtPath.BeginSolving(10, startNode, endNode);
+            trrtPath.ContinueSolving();
+
+    }
     }
 
     /// <summary>
@@ -148,32 +146,32 @@ public class PlayerInput : MonoBehaviour {
     /// </summary>
     public void btnBlockPath()
     {
-        if (node != null)
+        if (Djnode != null)
         {
             // Render the selected node to black.
-            Renderer rend = node.GetComponent<Renderer>();
+            Renderer rend = Djnode.GetComponent<Renderer>();
             rend.material.color = Color.black;
 
             // Set selected node to not walkable
-            DijkstraNode n = node.GetComponent<DijkstraNode>();
+            DijkstraNode n = Djnode.GetComponent<DijkstraNode>();
             n.setWalkable(false);
 
             // Add the node to the block path list.
-            blockPath.Add(node);
+            blockPath.Add(Djnode);
 
             // If the block path is start node, we remove start node.
-            if (node == startNode)
+            if (Djnode == startNode)
             {
                 startNode = null;
             }
 
             // If the block path is end node, we remove end node.
-            if (node == endNode)
+            if (Djnode == endNode)
             {
                 endNode = null;
             }
 
-            node = null;
+            Djnode = null;
         }
 
         // For selection grid system.
@@ -214,20 +212,20 @@ public class PlayerInput : MonoBehaviour {
     /// </summary>
     public void btnUnblockPath()
     {
-        if (node != null)
+        if (Djnode != null)
         {
             // Set selected node to white.
-            Renderer rend = node.GetComponent<Renderer>();
+            Renderer rend = Djnode.GetComponent<Renderer>();
             rend.material.color = Color.white;
 
             // Set selected not to walkable.
-            DijkstraNode n = node.GetComponent<DijkstraNode>();
+            DijkstraNode n = Djnode.GetComponent<DijkstraNode>();
             n.setWalkable(true);
 
             // Remove selected node from the block path list.
-            blockPath.Remove(node);
+            blockPath.Remove(Djnode);
 
-            node = null;
+            Djnode = null;
         }
 
         // For selection grid system.
