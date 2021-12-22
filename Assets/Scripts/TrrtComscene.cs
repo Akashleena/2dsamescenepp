@@ -8,11 +8,12 @@ using Debug = UnityEngine.Debug;
 using Vector3 = UnityEngine.Vector3;
 using Object= UnityEngine.Object;
 using Random=UnityEngine.Random;
+using Transform=UnityEngine.Transform;
 
 
 
 public class TrrtComscene : MonoBehaviour {
-	class Node {
+	public class Node {						//by default C# classes are of internal access modifier type and c# variales are of private type
 		public Vector3 pos;
 
 		public Vector3 parentPos;
@@ -121,10 +122,10 @@ public class TrrtComscene : MonoBehaviour {
 	}
 	
 	
-	void BeginSolving(int speed, Transform startNode, Transform endNode) {
+	public void BeginSolving(int speed, Transform startNode, Transform endNode) {
 		solvingSpeed = speed;
-		startNode=startNode;
-		endNode=endNode;
+		this.startNode=startNode;
+		this.endNode=endNode;
 		if(!solving) {
 			solving = true;
 			if(nodes.Count < 1) {
@@ -136,11 +137,11 @@ public class TrrtComscene : MonoBehaviour {
 			}
 		}
 	}
-	void ContinueSolving()
+	public void ContinueSolving()
 	{
 		while(solving) {
 			if(nodes.Count < MAX_NUM_NODES) {
-				statusText.text = "Solving... (nodes="+nodes.Count+", temp=" + temperature.ToString("0.00E00") + ")";
+				//statusText.text = "Solving... (nodes="+nodes.Count+", temp=" + temperature.ToString("0.00E00") + ")";
 				TRRTGrow();
 			}
 		}
@@ -278,7 +279,7 @@ public class TrrtComscene : MonoBehaviour {
 				
 		
 					//Determine whether we are close enough to goal
-					dx = endNode.postion.x - n.pos.x;
+					dx = endNode.position.x - n.pos.x;
 					dz = endNode.position.z - n.pos.z;
 					if(Mathf.Sqrt(dx*dx + dz*dz) <= stepSize) {
 					//Reached the goal!
