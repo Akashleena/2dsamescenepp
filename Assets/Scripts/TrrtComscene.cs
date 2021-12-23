@@ -120,9 +120,7 @@ public class TrrtComscene : MonoBehaviour {
 		
 
 	}
-	void OnMouseExit () {
-		coordText.text = "";
-	}
+	
 	
 	
 	public void BeginSolving(int speed, Transform startNode, Transform endNode) {
@@ -137,7 +135,7 @@ public class TrrtComscene : MonoBehaviour {
             DijkstraNode dn = obj.GetComponent<DijkstraNode>();
             if (!dn.isWalkable())
             {
-                //n.resetNode();
+                
                 obstaclenodes.Add(obj.transform);
             }
         }
@@ -282,15 +280,11 @@ public class TrrtComscene : MonoBehaviour {
 			
 			if(TransitionTest(nodes[closestInd].pos, pos)) 
 			{
-
-				// foreach (GameObject obj in dijkstranodes)
-       			//  {
-            	// 	DijkstraNode dn = obj.GetComponent<DijkstraNode>();
 				for (int i=0; i<obstaclenodes.Count; i++)
 				{
             		
                 	if((obstaclenodes[i].transform.position.x != pos.x)&&(obstaclenodes[i].transform.position.z != pos.z))
-						{
+					{
 
 						n = new Node(pos, nodes[closestInd].pos, closestInd, gameObject);
 						nodes.Add(n);
@@ -323,14 +317,14 @@ public class TrrtComscene : MonoBehaviour {
 						closestInd = nodes.Count - 1;
 						}
 						numAttempts++;
-					// }
+					}
 
 					}
 
 				}	
         		
 			
-			} 
+			
 			
 			else {
 				//this extension is aborted due to transition test, need a new target
