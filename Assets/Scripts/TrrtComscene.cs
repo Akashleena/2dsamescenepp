@@ -55,6 +55,8 @@ public class TrrtComscene : MonoBehaviour {
 	
 	
 	public float stepSize;
+
+	private GameObject[] dijkstranodes;
 	public Text coordText;
 	public Text statusText;
 	public Vector3 terrainSize; //remember, Y is height
@@ -88,7 +90,7 @@ public class TrrtComscene : MonoBehaviour {
 	public float pathCost=0;
 	public List<Vector3> obstacleCoord;
 	
-
+	//public DijkstraNode dn;
 	public static Object linePrefab;
 	public static Object pathPrefab;
 	public Vector3 ScaleofObs;
@@ -105,15 +107,15 @@ public class TrrtComscene : MonoBehaviour {
 		startTime = Time.realtimeSinceStartup;
 	
 		minX = 2;
-		maxX = 40;
+		maxX = 20;
 	
-		minZ = 2;
+		minZ = 0;
 	
-		maxZ = 40;
+		maxZ = 20;
 		minHeight = 0;
 		maxHeight = 2;
 		Debug.Log("maxHeight" + maxHeight);
-		stepSize = 10; //TODO experiment
+		//stepSize = 10; //TODO experiment
 		levelTimer=0.0f;
 
 	}
@@ -208,7 +210,7 @@ public class TrrtComscene : MonoBehaviour {
 		
 		float minDistSq;
 		float distSq;
-		
+		dijkstranodes = GameObject.FindGameObjectsWithTag("Node");
 		bool goingToGoal;
 		// Debug.Log ("check vertices" + newPos);
 
@@ -266,42 +268,53 @@ public class TrrtComscene : MonoBehaviour {
 			
 			if(TransitionTest(nodes[closestInd].pos, pos)) 
 			{
-			    // if (!(isNodeinsideObstacle(pos)))
-				// {
-					// if (!(isLineinsideObstacle(pos,nodes[closestInd].pos)))
-					// {
-					n = new Node(pos, nodes[closestInd].pos, closestInd, gameObject);
-					nodes.Add(n);
-					Debug.Log("Added node " + nodes.Count + ": " + n.pos.x + ", " + n.pos.y + ", " + n.pos.z);
-					 if (updateTimer)
+
+				foreach (GameObject obj in dijkstranodes)
+       			 {
+            		DijkstraNode dn = obj.GetComponent<DijkstraNode>();
+            		if (dn.isWalkable())
+            		{
+                		if((obj.transform.position.x != pos.x)&&(obj.transform.position.z != pos.z))
+						{
+
+						n = new Node(pos, nodes[closestInd].pos, closestInd, gameObject);
+						nodes.Add(n);
+						Debug.Log("Added node " + nodes.Count + ": " + n.pos.x + ", " + n.pos.y + ", " + n.pos.z);
+					 	if (updateTimer)
                 		levelTimer += Time.deltaTime;
                 		Debug.Log("levelTimer" + levelTimer);
 				
 		
-					//Determine whether we are close enough to goal
-					dx = endNode.position.x - n.pos.x;
-					dz = endNode.position.z - n.pos.z;
-					if(Mathf.Sqrt(dx*dx + dz*dz) <= stepSize) {
-					//Reached the goal!
-					FoundGoal();
-					return;
-					}
+						//Determine whether we are close enough to goal
+						dx = endNode.position.x - n.pos.x;
+						dz = endNode.position.z - n.pos.z;
+						if(Mathf.Sqrt(dx*dx + dz*dz) <= stepSize) 
+						{
+						//Reached the goal!
+						FoundGoal();
+						return;
+						}
 				
 					//Determine whether we are close enough to target, or need to keep extending
-					dx = tx - n.pos.x;
-					dz = tz - n.pos.z;
-					if(Mathf.Sqrt(dx*dx + dz*dz) <= stepSize) {
+						dx = tx - n.pos.x;
+						dz = tz - n.pos.z;
+						if(Mathf.Sqrt(dx*dx + dz*dz) <= stepSize) {
 					//we've reached our target point, need a new target
-					needNewTarget = true;
-					} 
-					else 
-					{
+						needNewTarget = true;
+						} 
+						else 
+						{
 					//keep extending from the latest node
-					closestInd = nodes.Count - 1;
-					}
-					numAttempts++;
+						closestInd = nodes.Count - 1;
+						}
+						numAttempts++;
 					// }
-				// }
+
+					}
+
+            		}
+        		}
+			
 			} 
 			
 			else {

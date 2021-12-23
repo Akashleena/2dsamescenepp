@@ -918,9 +918,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d57adb25a7d69cf4eb6fc6d053490ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  row: 18
-  column: 18
-  padding: 3
+  row: 50
+  column: 50
+  padding: 1
   nodePrefab: {fileID: 4059118030050390, guid: 079245831c9e35848b13a3eaa7f60be2, type: 3}
   grid: []
 --- !u!4 &750855675
@@ -1709,8 +1709,8 @@ MonoBehaviour:
   closestInd: 0
   goalInd: 0
   extendAngle: 0
-  startNode: {fileID: 0}
-  endNode: {fileID: 0}
+  startNode: {fileID: 1426402043}
+  endNode: {fileID: 1426402043}
   temperature: 0.000001
   numTransitionFails: 0
   endTime: 0
@@ -1748,7 +1748,16 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ed826d1c4fa4a7948a32fbe3f80e6261, type: 2}
+  - {fileID: 2100000, guid: ed826d1c4fa4a7948a32fbe3f80e6261, type: 2}
+  - {fileID: 2100000, guid: ed826d1c4fa4a7948a32fbe3f80e6261, type: 2}
+  - {fileID: 2100000, guid: ed826d1c4fa4a7948a32fbe3f80e6261, type: 2}
+  - {fileID: 2100000, guid: ed826d1c4fa4a7948a32fbe3f80e6261, type: 2}
+  - {fileID: 2100000, guid: ed826d1c4fa4a7948a32fbe3f80e6261, type: 2}
+  - {fileID: 2100000, guid: ed826d1c4fa4a7948a32fbe3f80e6261, type: 2}
+  - {fileID: 2100000, guid: ed826d1c4fa4a7948a32fbe3f80e6261, type: 2}
+  - {fileID: 2100000, guid: ed826d1c4fa4a7948a32fbe3f80e6261, type: 2}
+  - {fileID: 2100000, guid: ed826d1c4fa4a7948a32fbe3f80e6261, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
