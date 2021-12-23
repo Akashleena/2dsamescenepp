@@ -59,7 +59,7 @@ public class TrrtComscene : MonoBehaviour {
 	private GameObject[] dijkstranodes;
 	public Text coordText;
 	public Text statusText;
-	public Vector3 terrainSize; //remember, Y is height
+	//public Vector3 terrainSize; //remember, Y is height
 	public float minX, maxX, minZ, maxZ, minHeight, maxHeight;
 	public List<Node> nodes = new List<Node>();
 	
@@ -81,15 +81,15 @@ public class TrrtComscene : MonoBehaviour {
 	public float endTime;  //to get the simulation time
     public float startTime;
 	public float pGoToGoal = 0.1f;
-	public const int MAX_NUM_NODES = 5000;
+	public const int MAX_NUM_NODES = 500;
     public GameObject[] gameObjects;
 	public GameObject csvObject;
 	WriteToCSVFile writeToCsv;
 	public float levelTimer;
 	public bool updateTimer=true;
 	public float pathCost=0;
-	public List<Vector3> obstacleCoord;
-	
+	//public List<Vector3> obstacleCoord;
+	public List<Transform> obstaclenodes = new List<Transform>();
 	//public DijkstraNode dn;
 	public static Object linePrefab;
 	public static Object pathPrefab;
@@ -117,6 +117,7 @@ public class TrrtComscene : MonoBehaviour {
 		Debug.Log("maxHeight" + maxHeight);
 		//stepSize = 10; //TODO experiment
 		levelTimer=0.0f;
+		
 
 	}
 	void OnMouseExit () {
@@ -128,6 +129,19 @@ public class TrrtComscene : MonoBehaviour {
 		solvingSpeed = speed;
 		this.startNode=startNode;
 		this.endNode=endNode;
+		 
+		dijkstranodes = GameObject.FindGameObjectsWithTag("Node");
+        // We add all the nodes we found into unexplored.
+        foreach (GameObject obj in dijkstranodes)
+        {
+            DijkstraNode dn = obj.GetComponent<DijkstraNode>();
+            if (!dn.isWalkable())
+            {
+                //n.resetNode();
+                obstaclenodes.Add(obj.transform);
+            }
+        }
+
 		if(!solving) {
 			solving = true;
 			if(nodes.Count < 1) {
@@ -210,7 +224,7 @@ public class TrrtComscene : MonoBehaviour {
 		
 		float minDistSq;
 		float distSq;
-		dijkstranodes = GameObject.FindGameObjectsWithTag("Node");
+		
 		bool goingToGoal;
 		// Debug.Log ("check vertices" + newPos);
 
@@ -269,12 +283,13 @@ public class TrrtComscene : MonoBehaviour {
 			if(TransitionTest(nodes[closestInd].pos, pos)) 
 			{
 
-				foreach (GameObject obj in dijkstranodes)
-       			 {
-            		DijkstraNode dn = obj.GetComponent<DijkstraNode>();
-            		if (dn.isWalkable())
-            		{
-                		if((obj.transform.position.x != pos.x)&&(obj.transform.position.z != pos.z))
+				// foreach (GameObject obj in dijkstranodes)
+       			//  {
+            	// 	DijkstraNode dn = obj.GetComponent<DijkstraNode>();
+				for (int i=0; i<obstaclenodes.Count; i++)
+				{
+            		
+                	if((obstaclenodes[i].transform.position.x != pos.x)&&(obstaclenodes[i].transform.position.z != pos.z))
 						{
 
 						n = new Node(pos, nodes[closestInd].pos, closestInd, gameObject);
@@ -312,8 +327,8 @@ public class TrrtComscene : MonoBehaviour {
 
 					}
 
-            		}
-        		}
+				}	
+        		
 			
 			} 
 			

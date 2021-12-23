@@ -918,9 +918,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d57adb25a7d69cf4eb6fc6d053490ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  row: 50
-  column: 50
-  padding: 1
+  row: 25
+  column: 25
+  padding: 2
   nodePrefab: {fileID: 4059118030050390, guid: 079245831c9e35848b13a3eaa7f60be2, type: 3}
   grid: []
 --- !u!4 &750855675
@@ -1721,7 +1721,7 @@ MonoBehaviour:
   levelTimer: 0
   updateTimer: 1
   pathCost: 0
-  obstacleCoord: []
+  obstaclenodes: []
   ScaleofObs: {x: 0, y: 0, z: 0}
   k: 0
 --- !u!4 &1426402043 stripped
